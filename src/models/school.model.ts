@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 console.clear();
 
 interface school {
-  user: string;
+  name: string;
   password: string;
   photo: string;
   nit: string;
@@ -22,7 +22,7 @@ interface school {
 }
 
 const school_schema = new Schema<school>({
-  user: {
+  name: {
     type: String,
     required: true,
   },
@@ -53,7 +53,7 @@ const school_schema = new Schema<school>({
     type: String,
     required: true,
   },
-  contact: {
+  contact: { 
     website: {
       type: String,
       required: true,
