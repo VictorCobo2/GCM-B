@@ -1,12 +1,17 @@
 import { Schema, model } from "mongoose";
-console.clear()
+import bcrypt from "bcrypt";
+
+console.clear();
 
 interface school {
   user: string;
   password: string;
   photo: string;
   nit: string;
-  ubication: string;
+  ubication: {
+    longitude:number,
+    latitude:number
+  };
   description: string;
   contact: {
     website: string;
@@ -31,11 +36,18 @@ const school_schema = new Schema<school>({
   },
   nit: {
     type: String,
+    unique: true,
     required: true,
   },
   ubication: {
-    type: String,
-    required: true,
+    longitude:{
+        type:Number,
+        required:true
+    },
+    latitude:{
+        type:Number,
+        required:true
+    }
   },
   description: {
     type: String,
@@ -48,17 +60,30 @@ const school_schema = new Schema<school>({
     },
     email: {
       type: String,
+      unique: true,
       required: true,
     },
     phone: {
-      type: String,
+      type: String, 
+      unique: true,
       required: true,
     },
     whatsapp: {
       type: String,
+      unique: true,
       required: true,
     },
   },
 });
 
-export const school_model = model<school>("model", school_schema)
+school_schema.pre("save", function (next) {
+  bcrypt.hash(this.password, 10, (err: any, newPassword) => {
+    if (err) next(new Error("Error al encriptar"));
+    else {
+      this.password = newPassword;
+      next();
+    }
+  });
+});
+
+export const school_model = model<school>("schools", school_schema);

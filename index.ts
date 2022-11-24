@@ -37,6 +37,6 @@ mongoose
     console.log("No se pudo conectar a la DB  🔴");
     console.error(error);
   });
-
+ 
 app.listen(port, () => console.log("Esuchando en el puerto: ", port));
 
