@@ -62,10 +62,10 @@ export const JwtValidator = (req: Request, res: Response, next: NextFunction) =>
     
     if (doc === null) res.json({ msg: "No existe documento", cod_error: "01" }).status(204);
     else if (doc.matchedCount == 0)
-      res.json({ msg: `${nom}-02`, alert:"error" }).status(204);
-    else if(doc.acknowledged === false) res.json({ msg: `${nom}-03`, alert:"error" })  
+      res.json({ msg: `${nom}-02-EDIT`, alert:"error" }).status(204);
+    else if(doc.acknowledged === false) res.json({ msg: `${nom}-03-EDIT`, alert:"error" })  
 
-    else res.json({ msg: `${nom}-01`, alert:"success" }).status(200);
+    else res.json({ msg: `${nom}-01-EDIT`, alert:"success" }).status(200);
   };
   
   export const get_response = (
