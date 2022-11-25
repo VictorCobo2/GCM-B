@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { delete_response, edit_response, generarJwt, get_all_response } from "../helpers/global";
+import { delete_response, edit_response, generarJwt, getDistanciaMetros, get_all_response } from "../helpers/global";
 import { school_model } from "../models/school.model";
 import bcrypt from "bcrypt";
 
@@ -63,6 +63,7 @@ export const deleteSchool = async (req: Request, res: Response) => {
 
 export const getAllSchool = async (req: Request, res: Response) => {
   try {
+    const {longitude, latitude} = req.params
     const data = await school_model.aggregate([
       {
         $lookup:{
@@ -73,7 +74,14 @@ export const getAllSchool = async (req: Request, res: Response) => {
         }
       }
     ])
-    get_all_response("SC", data, res)
+    const newData = []
+    for (const key in data) {
+        const element = data[key];
+        console.log(element.ubication)
+        if( getDistanciaMetros( Number(longitude), Number(latitude), element.ubication.longitude, element.ubication.latitude )  <= 5000 ) newData.push(element)
+    }
+
+    get_all_response("SC", newData, res)
   } catch (error) {
     console.log(error)
     res.json({ msg: `SC-99`, alert: "error" });

@@ -86,3 +86,21 @@ export const JwtValidator = (req: Request, res: Response, next: NextFunction) =>
     else res.json(doc).status(204);
   };
   
+
+  export function getDistanciaMetros(lat1: number, lon1: number, lat2: number, lon2: number) {
+    const rad = function (x: number) {
+      return (x * Math.PI) / 180;
+    };
+    const EARTH_RADIUS = 6378.137;
+    let distance_latitude = rad(lat2 - lat1);
+    let dist_longitude = rad(lon2 - lon1);
+    let angles =
+      Math.sin(distance_latitude / 2) * Math.sin(distance_latitude / 2) +
+      Math.cos(rad(lat1)) * Math.cos(rad(lat2)) * Math.sin(dist_longitude / 2) * Math.sin(dist_longitude / 2);
+  
+    let round = 2 * Math.atan2(Math.sqrt(angles), Math.sqrt(1 - angles));
+  
+    let distance = EARTH_RADIUS * round * 1000;
+  
+    return distance;
+  }
