@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { edit_response } from "../helpers/global";
 import { service_model } from "../models/service.models";
 
 export const postService = (req: Request, res: Response) => {
@@ -15,6 +16,14 @@ export const postService = (req: Request, res: Response) => {
     }
 }
 
-export const putService = (req: Request, res: Response) => {
-    
+export const putService = async (req: Request, res: Response) => {
+    try {
+        console.log("hola")
+        const {id} = req.params 
+        console.log(req.body)
+        const data = await service_model.updateOne({_id:id}, req.body, {runValidators:true})
+        edit_response("SV", data, "", res)
+    } catch (error) {
+        res.json({error: error})
+    }
 }
