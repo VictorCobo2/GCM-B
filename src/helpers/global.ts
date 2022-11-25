@@ -49,8 +49,8 @@ export const JwtValidator = (req: Request, res: Response, next: NextFunction) =>
   ) => {
     if (doc === null) res.json({ msg: "No existe documento" }).status(204);
     else if (doc.deletedCount == 0)
-      res.json({ msg: `El código (${codigo}) de ${nom} no existe.`, cod_error: "01" }).status(204);
-    else res.json({ N1: "eliminado" }).status(200);
+      res.json({ msg: `${nom}-02`, alert:"error" }).status(204);
+    else res.json({ msg: `${nom}-01`, alert:"success" }).status(200);
   };
   
   export const edit_response = (
@@ -80,9 +80,9 @@ export const JwtValidator = (req: Request, res: Response, next: NextFunction) =>
     else res.json(doc);
   };
   
-  export const get_all_response = (doc: any, res: Response) => {
+  export const get_all_response = (nom: String, doc: any, res: Response) => {
     if (doc.length === 0)
-      res.json({ msg: `No hay datos disponibles.` , cod_error: "01" }).status(200);
+      res.json({ msg: `${nom}-02` , alert: "error" }).status(200);
     else res.json(doc).status(204);
   };
   

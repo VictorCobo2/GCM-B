@@ -25,6 +25,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 app.use(express.json({limit: '50mb'}));
 
 app.use("/api", routes.SCHOOL)
+app.use("/api", routes.SERVICE)
 
 app.get("/", (req, res) => {
   res.send(`Funciona la api en el puerto ${port}`);
