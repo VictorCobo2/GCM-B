@@ -34,8 +34,8 @@ export const login = async (req: Request, res: Response) => {
         data.password = " ";
         const token = await generarJwt(data.id);
         res.json({ data, token });
-      } else res.status(405).send({ msg: "usuario o contra PAILAS" });
-    } else res.status(405).send({ msg: "usuario o contra PAILAS" });
+      } else res.status(405).send({ msg: "UE", alert:"error" });
+    } else res.status(405).send({ msg: "UE", alert:"error" });
   } catch (error) {
     res.json({ A: error });
   }
