@@ -36,4 +36,21 @@ const service_schema = new Schema<service>({
     }
 })
 
+service_schema.pre("save", async function(next){
+    const search = await service_model.findOne({
+        $and:[
+            {id_school:this.id_school},
+            {type:this.type},
+            {course:this.course}
+        ]
+    })
+    if(search == null){
+        next()
+    }else {
+        next(new Error("SE"))
+    }
+
+})
+
+
 export const service_model = model<service>("services", service_schema)
