@@ -32,7 +32,7 @@ const school_schema = new Schema<school>({
   },
   photo: {
     type: String,
-    required: true,
+    default:"https://www.pngitem.com/pimgs/m/24-245816_instapirate-clip-arts-instagram-sin-foto-de-perfil.png"
   },
   nit: {
     type: String,
@@ -42,11 +42,11 @@ const school_schema = new Schema<school>({
   ubication: {
     longitude:{
         type:Number,
-        required:true
+        default:""
     },
     latitude:{
         type:Number,
-        required:true
+        default:""
     }
   },
   description: {
@@ -56,7 +56,7 @@ const school_schema = new Schema<school>({
   contact: { 
     website: {
       type: String,
-      required: true,
+      default:""
     },
     email: {
       type: String,
