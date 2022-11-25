@@ -15,6 +15,6 @@ export const postService = (req: Request, res: Response) => {
     }
 }
 
-export const getService = (req: Request, res: Response) => {
+export const putService = (req: Request, res: Response) => {
     
 }

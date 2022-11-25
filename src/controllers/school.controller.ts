@@ -80,8 +80,29 @@ export const getAllSchool = async (req: Request, res: Response) => {
         console.log(element.ubication)
         if( getDistanciaMetros( Number(longitude), Number(latitude), element.ubication.longitude, element.ubication.latitude )  <= 5000 ) newData.push(element)
     }
-
     get_all_response("SC", newData, res)
+  } catch (error) {
+    console.log(error)
+    res.json({ msg: `SC-99`, alert: "error" });
+  }
+};
+
+export const getSchool = async (req: Request, res: Response) => {
+  try {
+    const {id} = req.params
+    console.log(id)
+    const data = await school_model.aggregate([
+      {
+        $lookup:{
+          from:"services",
+          foreignField:"id_school",
+          localField:"_id",
+          as:"services"
+        }
+      },
+      { $match : { nit : id } }
+    ])
+     get_all_response("SC", data, res)
   } catch (error) {
     console.log(error)
     res.json({ msg: `SC-99`, alert: "error" });
